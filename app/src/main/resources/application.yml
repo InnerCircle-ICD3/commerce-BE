@@ -1,0 +1,4 @@
+spring:
+  application.name: commerce
+  profiles:
+    active: dev
