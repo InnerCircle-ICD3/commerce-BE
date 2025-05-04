@@ -9,7 +9,8 @@ include(
     "modules:payment",
     "modules:product",
     "modules:review",
-    "modules:admin"
+    "modules:admin",
+    "modules:auth"
 )
 
 pluginManagement {
