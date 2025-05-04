@@ -1,0 +1,42 @@
+name: ✨ 기능 추가
+description: 새롭게 추가할 기능을 제안해주세요.
+title: "[feat] "
+labels: ["feat"]
+body:
+  - type: textarea
+    id: feature-summary
+    attributes:
+      label: 💡 기능 요약
+      description: 어떤 기능이 필요한가요? 한 줄로 요약해주세요.
+      placeholder: "e.g. 회원가입 시 이메일 인증 기능 추가"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-detail
+    attributes:
+      label: 📋 상세 설명
+      description: 어떤 문제를 해결하려는지, 왜 필요한지 적어주세요.
+      placeholder: |
+        e.g.
+        - 현재는 가입 즉시 로그인 가능 → 보안 문제
+        - 이메일 인증을 통해 사용자 계정 유효성 확보 필요
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: expected-tasks
+    attributes:
+      label: 🛠 예상 작업 항목 (선택)
+      description: 대략적으로 예상되는 작업 단위를 체크박스로 작성해주세요.
+      options:
+        - label: 이메일 인증 API 추가
+        - label: 인증 링크 전송 로직 구현
+        - label: 인증 완료 시 계정 활성화
+
+  - type: input
+    id: related-issue
+    attributes:
+      label: 🔗 관련 이슈 (선택)
+      description: 관련된 기존 이슈가 있다면 #번호로 적어주세요.
+      placeholder: "#33"

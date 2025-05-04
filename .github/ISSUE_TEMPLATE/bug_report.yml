@@ -1,0 +1,56 @@
+name: 🐞 버그 제보
+description: 버그가 발생했을 때 제보해주세요.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: bug-summary
+    attributes:
+      label: 🐞 버그 요약
+      description: 어떤 버그인가요? 한 줄로 요약해주세요.
+      placeholder: "e.g. 로그인 시 잘못된 비밀번호 입력하면 서버가 500 에러 반환"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: 🔁 재현 절차
+      description: 버그가 발생하는 과정을 순서대로 작성해주세요.
+      placeholder: |
+        e.g.
+        1. 로그인 화면 진입
+        2. 잘못된 비밀번호 입력
+        3. 로그인 시도 → 500 에러 발생
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshot-or-log
+    attributes:
+      label: 📷 스크린샷 / 로그 (선택)
+      description: Optional. 관련 콘솔 로그나 화면 캡처가 있다면 첨부해주세요.
+      placeholder: "스크린샷이나 로그를 여기에 붙여넣어주세요"
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: ✅ 기대 동작
+      description: 정상이라면 어떤 결과가 나왔어야 하나요?
+      placeholder: "e.g. 로그인 실패 시 401 Unauthorized 응답"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: 🧪 환경 정보
+      description: OS / 브라우저 / 앱 / 기타 환경
+      placeholder: "e.g. macOS 14.3 / Chrome 123.0"
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 📋 추가 정보 (선택)
+      description: Optional. 관련된 기타 정보가 있다면 여기에 적어주세요.
+      placeholder: "추가 스택트레이스, 참고 링크, 관련 이슈 등"
