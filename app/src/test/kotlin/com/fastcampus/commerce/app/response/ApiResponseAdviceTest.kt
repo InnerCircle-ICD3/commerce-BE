@@ -1,4 +1,4 @@
-package com.fastcampus.commerce.response
+package com.fastcampus.commerce.app.response
 
 import com.fastcampus.commerce.common.response.ApiResponse
 import io.kotest.core.spec.style.DescribeSpec

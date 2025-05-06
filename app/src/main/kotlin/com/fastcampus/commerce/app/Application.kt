@@ -1,4 +1,4 @@
-package com.fastcampus.commerce
+package com.fastcampus.commerce.app
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
