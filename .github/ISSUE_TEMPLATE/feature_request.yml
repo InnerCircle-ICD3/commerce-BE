@@ -1,6 +1,6 @@
 name: ✨ 기능 추가
 description: 새롭게 추가할 기능을 제안해주세요.
-title: "[feat] "
+title: "[module] "
 labels: ["feat"]
 body:
   - type: textarea
@@ -15,24 +15,23 @@ body:
   - type: textarea
     id: feature-detail
     attributes:
-      label: 📋 상세 설명
+      label: 📋 상세 설명 (선택)
       description: 어떤 문제를 해결하려는지, 왜 필요한지 적어주세요.
       placeholder: |
         e.g.
         - 현재는 가입 즉시 로그인 가능 → 보안 문제
         - 이메일 인증을 통해 사용자 계정 유효성 확보 필요
-    validations:
-      required: true
 
-  - type: checkboxes
+  - type: textarea
     id: expected-tasks
     attributes:
-      label: 🛠 예상 작업 항목 (선택)
-      description: 대략적으로 예상되는 작업 단위를 체크박스로 작성해주세요.
-      options:
-        - label: 이메일 인증 API 추가
-        - label: 인증 링크 전송 로직 구현
-        - label: 인증 완료 시 계정 활성화
+      label: 🛠 예상 작업 항목
+      description: 예상되는 작업 단위를 자유롭게 작성해주세요. 목록으로 써주세요.
+      placeholder: |
+        e.g.
+        - ResponseDto 클래스 정의
+        - 성공/실패 응답 포맷 확정
+        - 기존 API 응답 포맷 수정
 
   - type: input
     id: related-issue

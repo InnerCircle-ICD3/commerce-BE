@@ -1,6 +1,6 @@
 name: 🐞 버그 제보
 description: 버그가 발생했을 때 제보해주세요.
-title: "[bug] "
+title: "[module] "
 labels: ["bug"]
 body:
   - type: textarea
