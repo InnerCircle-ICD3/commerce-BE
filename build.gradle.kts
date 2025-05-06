@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val javaVersion: String by project
 val springBootVersion: String by project
 val springMockkVersion: String by project
+val kotestVersion: String by project
+val springKotestVersion: String by project
 
 plugins {
     kotlin("jvm")
@@ -41,6 +43,9 @@ subprojects {
         testImplementation(kotlin("test"))
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
+        testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+        testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+        testImplementation("io.kotest.extensions:kotest-extensions-spring:$springKotestVersion")
 
         annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
         kapt("org.springframework.boot:spring-boot-configuration-processor")
