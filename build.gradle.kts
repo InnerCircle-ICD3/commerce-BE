@@ -77,3 +77,25 @@ subprojects {
         systemProperty("user.timezone", "UTC")
     }
 }
+
+fun String.runCommand(): String =
+    ProcessBuilder(*split(" ").toTypedArray())
+        .redirectErrorStream(true)
+        .start()
+        .inputStream.bufferedReader().readText().trim()
+
+tasks.register("printChangedModules") {
+    group = "ci"
+    doLast {
+        val baseCommit = project.findProperty("baseCommit") as? String ?: "origin/master"
+        val changedFiles = "git diff --name-only $baseCommit".runCommand().lines()
+
+        val changedModules = subprojects.mapNotNull { sub ->
+            val path = sub.projectDir.relativeTo(rootDir).path
+            if (changedFiles.any { it.startsWith("$path/") }) sub.name else null
+        }
+
+        println(changedModules.joinToString(" "))
+    }
+}
+
