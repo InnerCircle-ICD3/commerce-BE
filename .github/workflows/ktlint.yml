@@ -1,0 +1,30 @@
+name: Ktlint & Test
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Set up Gradle (with caching)
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run ktlintCheck on all modules
+        run: ./gradlew ktlintCheck
+
+      - name: Run test on all modules
+        run: ./gradlew test
