@@ -16,57 +16,57 @@ import org.springframework.web.bind.annotation.RestController
 class ApiResponseAdviceTest(
     @Autowired private val mockMvc: MockMvc,
 ) : DescribeSpec(
-    {
-        describe("ApiResponseAdvice") {
+        {
+            describe("ApiResponseAdvice") {
 
-            it("String을 반환하면 ApiResponse로 감싸진다") {
-                mockMvc.get("/test/string")
-                    .andExpect {
-                        status { isOk() }
-                        jsonPath("$.success") { value(true) }
-                        jsonPath("$.data") { value("hello world") }
-                        jsonPath("$.error") { doesNotExist() }
-                        jsonPath("$.message") { doesNotExist() }
-                    }
-            }
+                it("String을 반환하면 ApiResponse로 감싸진다") {
+                    mockMvc.get("/test/string")
+                        .andExpect {
+                            status { isOk() }
+                            jsonPath("$.success") { value(true) }
+                            jsonPath("$.data") { value("hello world") }
+                            jsonPath("$.error") { doesNotExist() }
+                            jsonPath("$.message") { doesNotExist() }
+                        }
+                }
 
-            it("객체를 반환하면 ApiResponse로 감싸진다") {
-                mockMvc.get("/test/object")
-                    .andExpect {
-                        status { isOk() }
-                        jsonPath("$.success") { value(true) }
-                        jsonPath("$.data.foo") { value("bar") }
-                        jsonPath("$.error") { doesNotExist() }
-                        jsonPath("$.message") { doesNotExist() }
-                    }
-            }
+                it("객체를 반환하면 ApiResponse로 감싸진다") {
+                    mockMvc.get("/test/object")
+                        .andExpect {
+                            status { isOk() }
+                            jsonPath("$.success") { value(true) }
+                            jsonPath("$.data.foo") { value("bar") }
+                            jsonPath("$.error") { doesNotExist() }
+                            jsonPath("$.message") { doesNotExist() }
+                        }
+                }
 
-            it("ErrorDetail을 반환하면 실패 응답으로 변환된다") {
-                mockMvc.get("/test/error")
-                    .andExpect {
-                        status { isOk() }
-                        jsonPath("$.success") { value(false) }
-                        jsonPath("$.data") { doesNotExist() }
-                        jsonPath("$.error.code") { value("TEST-001") }
-                        jsonPath("$.error.message") { value("에러입니다") }
-                        jsonPath("$.error.details.foo") { value("bar") }
-                        jsonPath("$.message") { value("에러입니다") }
-                    }
-            }
+                it("ErrorDetail을 반환하면 실패 응답으로 변환된다") {
+                    mockMvc.get("/test/error")
+                        .andExpect {
+                            status { isOk() }
+                            jsonPath("$.success") { value(false) }
+                            jsonPath("$.data") { doesNotExist() }
+                            jsonPath("$.error.code") { value("TEST-001") }
+                            jsonPath("$.error.message") { value("에러입니다") }
+                            jsonPath("$.error.details.foo") { value("bar") }
+                            jsonPath("$.message") { value("에러입니다") }
+                        }
+                }
 
-            it("ApiResponse 객체를 반환하면 그대로 응답된다") {
-                mockMvc.get("/test/api-response")
-                    .andExpect {
-                        status { isOk() }
-                        jsonPath("$.success") { value(true) }
-                        jsonPath("$.data.foo") { value("bar") }
-                        jsonPath("$.error") { doesNotExist() }
-                        jsonPath("$.message") { doesNotExist() }
-                    }
+                it("ApiResponse 객체를 반환하면 그대로 응답된다") {
+                    mockMvc.get("/test/api-response")
+                        .andExpect {
+                            status { isOk() }
+                            jsonPath("$.success") { value(true) }
+                            jsonPath("$.data.foo") { value("bar") }
+                            jsonPath("$.error") { doesNotExist() }
+                            jsonPath("$.message") { doesNotExist() }
+                        }
+                }
             }
-        }
-    },
-)
+        },
+    )
 
 @RestController
 @RequestMapping("/test")
