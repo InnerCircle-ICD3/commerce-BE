@@ -1,0 +1,41 @@
+name: ✨ 기능 추가
+description: 새롭게 추가할 기능을 제안해주세요.
+title: "[module] "
+labels: ["feat"]
+body:
+  - type: textarea
+    id: feature-summary
+    attributes:
+      label: 💡 기능 요약
+      description: 어떤 기능이 필요한가요? 한 줄로 요약해주세요.
+      placeholder: "e.g. 회원가입 시 이메일 인증 기능 추가"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-detail
+    attributes:
+      label: 📋 상세 설명 (선택)
+      description: 어떤 문제를 해결하려는지, 왜 필요한지 적어주세요.
+      placeholder: |
+        e.g.
+        - 현재는 가입 즉시 로그인 가능 → 보안 문제
+        - 이메일 인증을 통해 사용자 계정 유효성 확보 필요
+
+  - type: textarea
+    id: expected-tasks
+    attributes:
+      label: 🛠 예상 작업 항목
+      description: 예상되는 작업 단위를 자유롭게 작성해주세요. 목록으로 써주세요.
+      placeholder: |
+        e.g.
+        - ResponseDto 클래스 정의
+        - 성공/실패 응답 포맷 확정
+        - 기존 API 응답 포맷 수정
+
+  - type: input
+    id: related-issue
+    attributes:
+      label: 🔗 관련 이슈 (선택)
+      description: 관련된 기존 이슈가 있다면 #번호로 적어주세요.
+      placeholder: "#33"
