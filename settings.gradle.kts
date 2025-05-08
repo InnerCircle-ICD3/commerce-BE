@@ -1,5 +1,7 @@
 rootProject.name = "commerce"
 
+include(":common")
+
 pluginManagement {
     val kotlinVersion: String by settings
     val springBootVersion: String by settings
