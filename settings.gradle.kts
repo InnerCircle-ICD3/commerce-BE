@@ -4,6 +4,7 @@ include(
     ":common",
     ":modules:auth",
     ":modules:member",
+    ":modules:payment",
     ":modules:product",
     ":modules:order"
 )
