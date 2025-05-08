@@ -1,6 +1,9 @@
 rootProject.name = "commerce"
 
-include(":common")
+include(
+    ":common",
+    ":modules:member"
+)
 
 pluginManagement {
     val kotlinVersion: String by settings
