@@ -6,6 +6,7 @@ include(
     ":modules:member",
     ":modules:payment",
     ":modules:product",
+    ":modules:review",
     ":modules:order"
 )
 
