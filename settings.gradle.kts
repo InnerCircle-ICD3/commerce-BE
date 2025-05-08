@@ -1,6 +1,7 @@
 rootProject.name = "commerce"
 
 include(
+    ":app",
     ":common",
     ":modules:admin",
     ":modules:auth",
