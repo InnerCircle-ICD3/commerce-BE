@@ -7,7 +7,7 @@ include(
     ":modules:auth",
     ":modules:cart",
     ":modules:chat",
-    ":modules:member",
+    ":modules:user",
     ":modules:payment",
     ":modules:product",
     ":modules:review",
