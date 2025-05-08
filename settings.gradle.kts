@@ -3,6 +3,7 @@ rootProject.name = "commerce"
 include(
     ":common",
     ":modules:auth",
+    ":modules:chat",
     ":modules:member",
     ":modules:payment",
     ":modules:product",
