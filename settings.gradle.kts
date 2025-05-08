@@ -2,7 +2,8 @@ rootProject.name = "commerce"
 
 include(
     ":common",
-    ":modules:member"
+    ":modules:member",
+    ":modules:product"
 )
 
 pluginManagement {
