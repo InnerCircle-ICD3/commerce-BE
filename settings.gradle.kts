@@ -4,7 +4,8 @@ include(
     ":common",
     ":modules:auth",
     ":modules:member",
-    ":modules:product"
+    ":modules:product",
+    ":modules:order"
 )
 
 pluginManagement {
