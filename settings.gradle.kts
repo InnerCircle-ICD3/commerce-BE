@@ -2,6 +2,7 @@ rootProject.name = "commerce"
 
 include(
     ":common",
+    ":modules:admin",
     ":modules:auth",
     ":modules:cart",
     ":modules:chat",
