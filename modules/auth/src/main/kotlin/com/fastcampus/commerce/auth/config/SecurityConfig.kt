@@ -1,6 +1,6 @@
 
 
-package com.base801.auth.config
+package com.fastcampus.commerce.auth.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
