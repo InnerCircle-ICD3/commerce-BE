@@ -9,13 +9,14 @@ auth:
     prefix: Bearer
 
   oauth2:
-    kakao:
-      client-id: 05bd45c4fc14751eb8f1bca650e68906
-      client-secret: 2xid9hOVsINyHUUMZ2V0e01cHKs9dp0t
-      redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+    naver:
+      client-id: OFAjwhciHWlXDEPTzYGW
+      client-secret: 1MF0BuXZ31
+      redirect-uri: http://localhost:8080/login/oauth2/code/naver
       scope:
-        - profile_nickname
-        - account_email
+        - name
+        - email
+        - profile_image
 
   login:
     max-attempts: 5                  # 로그인 실패 허용 횟수
