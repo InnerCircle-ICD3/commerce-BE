@@ -1,5 +1,4 @@
 val jjwtVersion = "0.11.5"
-//const val mockitoVersion = "4.5.1"
 
 dependencies {
     // Spring Security Core
