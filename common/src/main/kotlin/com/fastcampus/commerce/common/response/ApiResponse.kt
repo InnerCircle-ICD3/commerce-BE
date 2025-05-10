@@ -4,7 +4,7 @@ import com.fastcampus.commerce.common.error.ErrorMessage
 
 data class ApiResponse<T> private constructor(
     val data: T? = null,
-    val error: ErrorMessage? = null
+    val error: ErrorMessage? = null,
 ) {
     companion object {
         fun <S> success(data: S): ApiResponse<S> {
