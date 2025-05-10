@@ -19,8 +19,12 @@ vi ~/.aws/credentials
 ```
 ```
 [default]
+# IAM User 별로 생성된 Access Key를 입력합니다.
 aws_access_key_id=your_access_key
+# IAM User 별로 생성된 Secret Key를 입력합니다.
 aws_secret_access_key=your_secret_key
+# Seoul Region 고정입니다!   
+region = ap-northeast-2
 ```
 3. 자격 증명 파일 권한 설정
 ```bash
