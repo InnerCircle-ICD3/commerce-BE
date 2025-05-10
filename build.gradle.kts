@@ -2,6 +2,7 @@ val javaVersion: String by project
 val springBootVersion: String by project
 val kotestVersion: String by project
 val springKotestVersion: String by project
+val kotlinSdkVersion: String by project
 
 plugins {
     kotlin("jvm")
@@ -37,9 +38,9 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-        testImplementation("io.kotest:kotest-runner-junit5:${kotestVersion}")
-        testImplementation("io.kotest:kotest-assertions-core:${kotestVersion}")
-        testImplementation("io.kotest.extensions:kotest-extensions-spring:${springKotestVersion}")
+        testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+        testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+        testImplementation("io.kotest.extensions:kotest-extensions-spring:$springKotestVersion")
 
         annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
         kapt("org.springframework.boot:spring-boot-configuration-processor")
