@@ -41,6 +41,14 @@ subprojects {
         testImplementation("io.kotest:kotest-assertions-core:${kotestVersion}")
         testImplementation("io.kotest.extensions:kotest-extensions-spring:${springKotestVersion}")
 
+        if (project.name != "common") {
+            implementation("org.springframework.boot:spring-boot-starter-web")
+            implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+            runtimeOnly("com.h2database:h2")
+            runtimeOnly("org.postgresql:postgresql")
+        }
+
         annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
         kapt("org.springframework.boot:spring-boot-configuration-processor")
     }
