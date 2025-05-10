@@ -10,8 +10,8 @@ auth:
 
   oauth2:
     kakao:
-      client-id: ${05bd45c4fc14751eb8f1bca650e68906}
-      client-secret: ${	2xid9hOVsINyHUUMZ2V0e01cHKs9dp0t}
+      client-id: 05bd45c4fc14751eb8f1bca650e68906
+      client-secret: 2xid9hOVsINyHUUMZ2V0e01cHKs9dp0t
       redirect-uri: http://localhost:8080/login/oauth2/code/kakao
       scope:
         - profile_nickname
@@ -32,6 +32,7 @@ auth:
   cors:
     allowed-origins:
       - http://localhost:8080
+      - http://localhost:3000
     allowed-methods:
       - GET
       - POST
