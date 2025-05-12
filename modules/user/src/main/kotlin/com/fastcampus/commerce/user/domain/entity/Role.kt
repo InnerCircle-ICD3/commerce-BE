@@ -1,5 +1,6 @@
 package com.fastcampus.commerce.user.domain.entity
 
+import com.fastcampus.commerce.user.domain.model.RoleType
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -10,15 +11,10 @@ class Role(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(length = 20, nullable = false, unique = true)
-    val code: String,  // ex: USER, ADMIN
+    @Column(nullable = false, unique = true)
+    val code: RoleType,  // ex: USER, ADMIN
 
-    @Column(length = 100)
-    val description: String? = null,
-
-    @Column(name = "created_at", nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "deleted_at")
     val deletedAt: LocalDateTime? = null
 )
