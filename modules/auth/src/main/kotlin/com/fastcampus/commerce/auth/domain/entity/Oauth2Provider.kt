@@ -1,5 +1,6 @@
 package com.fastcampus.commerce.auth.domain.entity
 
+import com.fastcampus.commerce.auth.domain.model.Oauth2ProviderType
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -10,15 +11,14 @@ class Oauth2Provider(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(nullable = false, unique = true)
-    val name: String,  // KAKAO, NAVER 등
+    @Column(length = 50, nullable = false, unique = true)
+    val name: Oauth2ProviderType,  // KAKAO, NAVER 등
 
-    @Column(name = "is_active", nullable = false)
+    @Column(nullable = false)
     val isActive: Boolean = true,
 
-    @Column(name = "created_at", nullable = false)
+    @Column(nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "deleted_at")
     val deletedAt: LocalDateTime? = null
 )
