@@ -26,6 +26,7 @@ class SecurityConfig(
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
+        //cors 모두 허용
         val config = CorsConfiguration().apply {
             allowedOrigins = corsProperties.allowedOrigins
             allowedMethods = corsProperties.allowedMethods
