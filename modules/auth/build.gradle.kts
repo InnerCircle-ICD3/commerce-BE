@@ -1,6 +1,10 @@
 val jjwtVersion = "0.11.5"
 
 dependencies {
+
+    // User module
+    implementation(project(":modules:user"))
+
     // Spring Security Core
     implementation("org.springframework.boot:spring-boot-starter-security")
 
