@@ -18,18 +18,6 @@ auth:
         - email
         - profile_image
 
-  login:
-    max-attempts: 5                  # 로그인 실패 허용 횟수
-    lock-duration-seconds: 600       # 실패 시 잠금 시간 (10분)
-
-  roles:
-    - name: USER
-      authority: ROLE_USER
-    - name: ADMIN
-      authority: ROLE_ADMIN
-    - name: SUPER_ADMIN
-      authority: ROLE_SUPER_ADMIN
-
   cors:
     allowed-origins:
       - http://localhost:8080
