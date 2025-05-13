@@ -16,11 +16,11 @@ class UserRoleConnection(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @JoinColumn(nullable = false)
-    val user: Long,
+    @Column(nullable = false)
+    val userId: Long,
 
-    @JoinColumn(nullable = false)
-    val role: Long,
+    @Column(nullable = false)
+    val roleId: Long,
 
     @Column(nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
