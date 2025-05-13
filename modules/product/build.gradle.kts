@@ -3,7 +3,6 @@ plugins {
     kotlin("plugin.spring")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
-    id("org.jlleitschuh.gradle.ktlint") version "11.3.2"  // 코드 스타일 검사
 }
 
 tasks.bootJar { enabled = true}
