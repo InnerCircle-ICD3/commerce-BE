@@ -10,9 +10,9 @@ class UserOauth2Connection(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val user: Long,
+    val userId: Long,
 
-    val provider: Long,
+    val providerId: Long,
 
     @Column(length = 255, nullable = false)
     val oauth2Id: String,  // Provider에서 제공하는 유저 고유 ID
