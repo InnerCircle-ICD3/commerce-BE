@@ -15,7 +15,7 @@ import jakarta.persistence.Table
 class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
 
     @Column(nullable = false)
     var name : String,
