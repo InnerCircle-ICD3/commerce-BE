@@ -13,18 +13,18 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "product_categories")
-class ProductCategoryEntity(
+class ProductCategory(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    val product: ProductEntity,
+    val product: Product,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    val category: CategoryEntity,
+    val category: Category,
 
     @Column(name = "created_at")
     val createdAt: LocalDateTime = LocalDateTime.now(),

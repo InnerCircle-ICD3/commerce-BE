@@ -12,7 +12,7 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "products")
-class ProductEntity(
+class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
@@ -45,5 +45,5 @@ class ProductEntity(
     var deletedAt: LocalDateTime?,
 
     @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val productCategories: MutableList<ProductCategoryEntity> = mutableListOf()
+    val productCategories: MutableList<ProductCategory> = mutableListOf()
 )

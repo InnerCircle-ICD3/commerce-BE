@@ -15,14 +15,14 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "categories")
-class CategoryEntity (
+class Category (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
-    var group: CategoryGroupEntity,
+    var group: CategoryGroup,
 
     @Column(nullable = false, length = 50)
     var name: String,
@@ -43,5 +43,5 @@ class CategoryEntity (
     var deletedAt: LocalDateTime? = null,
 
     @OneToMany(mappedBy = "category", cascade = [CascadeType.ALL])
-    val productCategories: MutableList<ProductCategoryEntity> = mutableListOf()
+    val productCategories: MutableList<ProductCategory> = mutableListOf()
 )

@@ -12,7 +12,7 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "category_groups")
-class CategoryGroupEntity (
+class CategoryGroup (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -33,5 +33,5 @@ class CategoryGroupEntity (
     var deletedAt: LocalDateTime?,
 
     @OneToMany(mappedBy = "group", cascade = [CascadeType.ALL])
-    val categories: MutableList<CategoryEntity> = mutableListOf()
+    val categories: MutableList<Category> = mutableListOf()
 )
