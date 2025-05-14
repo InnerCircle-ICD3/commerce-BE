@@ -1,6 +1,8 @@
 val jjwtVersion: String by project
 
 dependencies {
+    implementation(project(":modules:user"))
+
     // Spring Security
     implementation("org.springframework.boot:spring-boot-starter-security")
 
