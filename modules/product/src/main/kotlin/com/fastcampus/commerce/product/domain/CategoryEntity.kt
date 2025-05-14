@@ -18,7 +18,7 @@ import jakarta.persistence.Table
 class CategoryEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
@@ -28,7 +28,7 @@ class CategoryEntity (
     var name: String,
 
     @Column(name = "sort_order")
-    var sortOrder: Int? = null,
+    var sortOrder: Int? = 0,
 
     @Column(name = "is_deleted", nullable = false)
     var isDeleted: Boolean = false,

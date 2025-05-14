@@ -42,7 +42,7 @@ class ProductEntity(
     var updatedAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "deleted_at")
-    var deletedAt: LocalDateTime? = null,
+    var deletedAt: LocalDateTime?,
 
     @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], orphanRemoval = true)
     val productCategories: MutableList<ProductCategoryEntity> = mutableListOf()

@@ -30,7 +30,7 @@ class CategoryGroupEntity (
     var updatedAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "deleted_at")
-    var deletedAt: LocalDateTime? = null,
+    var deletedAt: LocalDateTime?,
 
     @OneToMany(mappedBy = "group", cascade = [CascadeType.ALL])
     val categories: MutableList<CategoryEntity> = mutableListOf()

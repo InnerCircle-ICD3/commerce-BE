@@ -30,7 +30,7 @@ class ProductCategoryEntity(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "deleted_at")
-    var deletedAt: LocalDateTime? = null
+    var deletedAt: LocalDateTime?
 )
 
 
