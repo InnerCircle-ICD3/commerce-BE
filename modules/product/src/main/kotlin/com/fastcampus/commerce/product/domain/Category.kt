@@ -42,6 +42,6 @@ class Category (
     @Column(name = "deleted_at")
     var deletedAt: LocalDateTime? = null,
 
-    @OneToMany(mappedBy = "category", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "category")
     var productCategories: MutableList<ProductCategory> = mutableListOf()
 )
