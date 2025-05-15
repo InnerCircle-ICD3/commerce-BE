@@ -21,22 +21,22 @@ class Product(
     var name : String,
 
     @Column(nullable = false, length = 20)
-    val status : String,
+    var status : String,
 
     @Column(nullable = false)
-    val price : Int,
+    var price : Int,
 
     @Column(nullable = false)
-    val thumbnail : String,
+    var thumbnail : String,
 
     @Column(name = "detail_imgae",nullable = false)
-    val detailImage : String,
+    var detailImage : String,
 
     @Column(name = "is_deleted",nullable = false)
-    val isDeleted : Boolean,
+    var isDeleted : Boolean,
 
     @Column(name = "created_at")
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    var createdAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "updated_at")
     var updatedAt: LocalDateTime = LocalDateTime.now(),
@@ -45,5 +45,5 @@ class Product(
     var deletedAt: LocalDateTime?,
 
     @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val productCategories: MutableList<ProductCategory> = mutableListOf()
+    var productCategories: MutableList<ProductCategory> = mutableListOf()
 )

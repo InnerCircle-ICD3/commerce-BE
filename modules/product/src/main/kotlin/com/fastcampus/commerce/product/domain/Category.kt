@@ -43,5 +43,5 @@ class Category (
     var deletedAt: LocalDateTime? = null,
 
     @OneToMany(mappedBy = "category", cascade = [CascadeType.ALL])
-    val productCategories: MutableList<ProductCategory> = mutableListOf()
+    var productCategories: MutableList<ProductCategory> = mutableListOf()
 )
