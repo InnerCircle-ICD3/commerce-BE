@@ -1,7 +1,6 @@
 package com.fastcampus.commerce.user.domain.entity
 
 import java.time.LocalDateTime
-import java.util.*
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -17,7 +16,7 @@ class User(
     val id: Long = 0,
 
     @Column(nullable = false, unique = true)
-    val externalId: UUID = UUID.randomUUID(),  // 외부 노출용 (Public ID)
+    val externalId: String,  // 외부 노출용 (Public ID)
 
     @Column(length = 100)
     val name: String? = null,
