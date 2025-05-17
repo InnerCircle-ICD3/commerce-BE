@@ -3,7 +3,6 @@ package com.fastcampus.commerce.cart.application
 import com.fastcampus.commerce.cart.domain.Cart
 import com.fastcampus.commerce.cart.domain.repository.CartRepository
 import com.fastcampus.commerce.cart.interfaces.CartAddRequest
-import com.fastcampus.commerce.cart.interfaces.CartAddResponse
 import com.fastcampus.commerce.product.domain.entity.BaseEntity
 import com.fastcampus.commerce.product.domain.entity.Inventory
 import com.fastcampus.commerce.product.domain.entity.Product
@@ -128,12 +127,7 @@ class CartServiceTest : FunSpec(
     },
 ) {
     companion object {
-        private fun createProduct(
-            id: Long,
-            name: String = "테스트 상품",
-            price: Int = 10000,
-            status: SellingStatus = SellingStatus.ON_SALE,
-        ): Product {
+        private fun createProduct(id: Long, name: String = "테스트 상품", price: Int = 10000, status: SellingStatus = SellingStatus.ON_SALE): Product {
             val product = Product(
                 name = name,
                 price = price,
@@ -159,10 +153,7 @@ class CartServiceTest : FunSpec(
             return product
         }
 
-        private fun createInventory(
-            productId: Long,
-            quantity: Int,
-        ): Inventory {
+        private fun createInventory(productId: Long, quantity: Int): Inventory {
             // Create a product for the inventory
             val product = createProduct(productId)
 
@@ -189,11 +180,7 @@ class CartServiceTest : FunSpec(
             return inventory
         }
 
-        private fun createCart(
-            userId: Long,
-            product: Product,
-            quantity: Int,
-        ): Cart {
+        private fun createCart(userId: Long, product: Product, quantity: Int): Cart {
             val user = User(
                 id = userId,
                 externalId = UUID.randomUUID().toString(),

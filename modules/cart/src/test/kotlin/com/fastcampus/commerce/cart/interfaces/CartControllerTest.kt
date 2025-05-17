@@ -1,7 +1,6 @@
 package com.fastcampus.commerce.cart.interfaces
 
 import com.fastcampus.commerce.cart.application.CartService
-import com.fastcampus.commerce.common.response.ApiResponse
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
