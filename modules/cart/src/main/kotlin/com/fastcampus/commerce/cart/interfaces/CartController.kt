@@ -1,6 +1,7 @@
 package com.fastcampus.commerce.cart.interfaces
 
 import com.fastcampus.commerce.cart.application.CartService
+import com.fastcampus.commerce.common.response.ApiResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -15,10 +16,14 @@ class CartController(
     @PostMapping
     fun addToCart(
         @RequestBody request: CartAddRequest,
-    ): ResponseEntity<CartAddResponse> {
+    ): ResponseEntity<ApiResponse<CartAddResponse>> {
+        /*
+        임시로 userId 부여
+        USER 모듈 완성 후 수정 예정
+        */
         val userId = 1L
 
         val response = cartService.addToCart(userId, request)
-        return ResponseEntity.ok(response)
+        return ResponseEntity.ok(ApiResponse.success(response))
     }
 }

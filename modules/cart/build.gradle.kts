@@ -11,6 +11,7 @@ tasks.jar { enabled = false }
 val springMockkVersion: String by project
 
 dependencies {
+    implementation(project(":common"))
     implementation(project(":modules:product"))
     implementation(project(":modules:user"))
 

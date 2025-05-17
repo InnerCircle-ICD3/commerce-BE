@@ -1,6 +1,7 @@
 package com.fastcampus.commerce.cart.interfaces
 
 import com.fastcampus.commerce.cart.application.CartService
+import com.fastcampus.commerce.common.response.ApiResponse
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -35,17 +36,18 @@ class CartControllerTest : FunSpec(
                 // Then
                 responseEntity.statusCode shouldBe HttpStatus.OK
                 val response = responseEntity.body!!
+                val data = response.data!!
 
-                response.cartItemId shouldBe cartAddResponse.cartItemId
-                response.productId shouldBe cartAddResponse.productId
-                response.name shouldBe cartAddResponse.name
-                response.price shouldBe cartAddResponse.price
-                response.quantity shouldBe cartAddResponse.quantity
-                response.stockQuantity shouldBe cartAddResponse.stockQuantity
-                response.thumbnail shouldBe cartAddResponse.thumbnail
-                response.isSoldOut shouldBe cartAddResponse.isSoldOut
-                response.isAvailable shouldBe cartAddResponse.isAvailable
-                response.requiresQuantityAdjustment shouldBe cartAddResponse.requiresQuantityAdjustment
+                data.cartItemId shouldBe cartAddResponse.cartItemId
+                data.productId shouldBe cartAddResponse.productId
+                data.name shouldBe cartAddResponse.name
+                data.price shouldBe cartAddResponse.price
+                data.quantity shouldBe cartAddResponse.quantity
+                data.stockQuantity shouldBe cartAddResponse.stockQuantity
+                data.thumbnail shouldBe cartAddResponse.thumbnail
+                data.isSoldOut shouldBe cartAddResponse.isSoldOut
+                data.isAvailable shouldBe cartAddResponse.isAvailable
+                data.requiresQuantityAdjustment shouldBe cartAddResponse.requiresQuantityAdjustment
 
                 verify { cartService.addToCart(userId, request) }
             }
