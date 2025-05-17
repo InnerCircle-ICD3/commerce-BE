@@ -1,12 +1,9 @@
 auth:
-
   jwt:
-    secret-key: ${JWT_SECRET_KEY:qJ5E6ubXe9f4XorlbokaKx6j6qX26fNgRDlZ/09nYT8WQw1+6nBl5sspMpiB2KBtMYRQA7wiFvBE4R11cINYCg==}
-    access-token-validity-seconds: 1800      # 30분
-    refresh-token-validity-seconds: 604800   # 7일
-    issuer: base801-auth-service
-    header: Authorization
-    prefix: Bearer
+    issuer: fastcampus-commerce
+    secret: ${SECRET_KEY}
+    access-token-expire-minutes: 30 # 30분
+    refresh-token-expire-days: 14   # 2주
 
   oauth2:
     naver:
@@ -17,16 +14,3 @@ auth:
         - name
         - email
         - profile_image
-
-  cors:
-    allowed-origins:
-      - http://localhost:8080
-      - http://localhost:3000
-    allowed-methods:
-      - GET
-      - POST
-      - PUT
-      - DELETE
-    allowed-headers:
-      - Authorization
-      - Content-Type
