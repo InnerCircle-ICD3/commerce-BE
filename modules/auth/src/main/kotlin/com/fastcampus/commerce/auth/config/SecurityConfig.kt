@@ -1,52 +1,36 @@
 package com.fastcampus.commerce.auth.config
 
-import org.springframework.boot.context.properties.ConfigurationProperties
+import com.fastcampus.commerce.auth.TokenProvider
+import com.fastcampus.commerce.auth.filter.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.CorsConfigurationSource
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-
-@Configuration
-@ConfigurationProperties(prefix = "auth.cors")
-class CorsProperties {
-    var allowedOrigins: List<String> = listOf("http://localhost:8080")
-    var allowedMethods: List<String> = listOf("GET", "POST", "PUT", "DELETE")
-    var allowedHeaders: List<String> = listOf("Authorization", "Content-Type")
-}
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val corsProperties: CorsProperties
+    private val tokenProvider: TokenProvider
 ) {
 
     @Bean
-    fun corsConfigurationSource(): CorsConfigurationSource {
-        //cors 모두 허용
-        val config = CorsConfiguration().apply {
-            allowedOrigins = corsProperties.allowedOrigins
-            allowedMethods = corsProperties.allowedMethods
-            allowedHeaders = corsProperties.allowedHeaders
-            allowCredentials = true
-        }
-        return UrlBasedCorsConfigurationSource().apply {
-            registerCorsConfiguration("/**", config)
-        }
-    }
-
-    @Bean
-    fun securityFilterChain(http: HttpSecurity, corsConfigurationSource: CorsConfigurationSource): SecurityFilterChain {
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .cors { it.configurationSource(corsConfigurationSource) }
-            .csrf { it.disable() }
-            .authorizeHttpRequests {
-                it.requestMatchers("/auth/login", "/auth/signup", "/oauth2/**").permitAll()
+            .authorizeHttpRequests { auth ->
+                auth
+                    .requestMatchers("/admin/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
+                    .requestMatchers("/auth/login", "/auth/signup", "/oauth2/**").permitAll()
                     .anyRequest().authenticated()
             }
+            .csrf { it.disable() }
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .addFilterBefore(
+                JwtAuthenticationFilter(tokenProvider),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
         return http.build()
     }
 }
