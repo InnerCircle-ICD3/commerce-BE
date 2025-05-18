@@ -6,7 +6,6 @@ import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.springframework.http.HttpStatus
 
 class CartControllerTest : FunSpec(
     {
@@ -30,12 +29,10 @@ class CartControllerTest : FunSpec(
                 every { cartService.addToCart(userId, request) } returns cartAddResponse
 
                 // When
-                val responseEntity = cartController.addToCart(request)
+                val responseDto = cartController.addToCart(request)
 
                 // Then
-                responseEntity.statusCode shouldBe HttpStatus.OK
-                val response = responseEntity.body!!
-                val data = response.data!!
+                val data = responseDto.data!!
 
                 data.cartItemId shouldBe cartAddResponse.cartItemId
                 data.productId shouldBe cartAddResponse.productId
