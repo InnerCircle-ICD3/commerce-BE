@@ -35,7 +35,7 @@ class CartService(
 
         val existingCart = cartRepository.findByUserIdAndProductId(userId, productId)
 
-        if(request.quantity > inventory.quantity){
+        if (request.quantity > inventory.quantity) {
             requiresQuantityAdjustment = true
             quantity = inventory.quantity
         }
