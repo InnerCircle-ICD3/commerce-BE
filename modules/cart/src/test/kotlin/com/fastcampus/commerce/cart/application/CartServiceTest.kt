@@ -188,12 +188,9 @@ class CartServiceTest : FunSpec(
             )
 
             return Cart(
-                id = 1L,
                 user = user,
                 product = product,
                 quantity = quantity,
-                createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now(),
             )
         }
     }
