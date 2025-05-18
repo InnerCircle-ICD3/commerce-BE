@@ -4,7 +4,9 @@ import com.fastcampus.commerce.cart.domain.Cart
 import com.fastcampus.commerce.cart.domain.repository.CartRepository
 import com.fastcampus.commerce.cart.interfaces.CartAddRequest
 import com.fastcampus.commerce.cart.interfaces.CartAddResponse
+import com.fastcampus.commerce.common.error.CoreException
 import com.fastcampus.commerce.product.domain.entity.SellingStatus
+import com.fastcampus.commerce.product.domain.error.ProductErrorCode
 import com.fastcampus.commerce.product.domain.repository.InventoryRepository
 import com.fastcampus.commerce.product.domain.repository.ProductRepository
 import com.fastcampus.commerce.user.domain.entity.User
@@ -25,10 +27,10 @@ class CartService(
         val quantity = request.quantity
 
         val product = productRepository.findById(productId)
-            .orElseThrow { IllegalArgumentException("해당하는 상품이 없습니다. 상품 id : $productId") }
+            .orElseThrow { CoreException(ProductErrorCode.PRODUCT_NOT_FOUND) }
 
         val inventory = inventoryRepository.findByProductId(productId)
-            .orElseThrow { IllegalArgumentException("해당 상품의 재고가 없습니다. 상품 id: $productId") }
+            .orElseThrow { CoreException(ProductErrorCode.INVENTORY_NOT_FOUND) }
 
         val existingCart = cartRepository.findByUserIdAndProductId(userId, productId)
 
