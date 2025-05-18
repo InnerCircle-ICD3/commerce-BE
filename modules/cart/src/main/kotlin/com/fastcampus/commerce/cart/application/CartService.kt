@@ -24,7 +24,8 @@ class CartService(
 ) {
     fun addToCart(userId: Long, request: CartAddRequest): CartAddResponse {
         val productId = request.productId
-        val quantity = request.quantity
+        var quantity = request.quantity
+        var requiresQuantityAdjustment = false
 
         val product = productRepository.findById(productId)
             .orElseThrow { CoreException(ProductErrorCode.PRODUCT_NOT_FOUND) }
@@ -33,6 +34,11 @@ class CartService(
             .orElseThrow { CoreException(ProductErrorCode.INVENTORY_NOT_FOUND) }
 
         val existingCart = cartRepository.findByUserIdAndProductId(userId, productId)
+
+        if(request.quantity > inventory.quantity){
+            requiresQuantityAdjustment = true
+            quantity = inventory.quantity
+        }
 
         val cart = if (existingCart.isPresent) {
             val cartItem = existingCart.get()
@@ -58,7 +64,6 @@ class CartService(
 
         val isSoldOut = product.status == SellingStatus.UNAVAILABLE
         val isAvailable = product.status == SellingStatus.ON_SALE
-        val requiresQuantityAdjustment = savedCart.quantity > inventory.quantity
 
         // Create response
         return CartAddResponse(

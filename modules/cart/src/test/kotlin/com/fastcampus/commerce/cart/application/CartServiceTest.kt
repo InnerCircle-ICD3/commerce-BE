@@ -123,6 +123,45 @@ class CartServiceTest : FunSpec(
                 verify { cartRepository.findByUserIdAndProductId(userId, productId) }
                 verify { cartRepository.save(any()) }
             }
+
+            test("재고보다 많은 수량을 장바구니에 추가하면 장바구니에 재고와 같은 값이 저장된다") {
+                // Given
+                val userId = 1L
+                val productId = 1L
+                val requestQuantity = 20
+                val stockQuantity = 10
+                val request = CartAddRequest(productId = productId, quantity = requestQuantity)
+
+                val product = createProduct(productId)
+                val inventory = createInventory(productId, stockQuantity)
+
+                // Create a cart with the adjusted quantity (equal to stock quantity)
+                val adjustedCart = createCart(userId, product, stockQuantity)
+
+                every { productRepository.findById(productId) } returns Optional.of(product)
+                every { inventoryRepository.findByProductId(productId) } returns Optional.of(inventory)
+                every { cartRepository.findByUserIdAndProductId(userId, productId) } returns Optional.empty()
+
+                // Capture the cart being saved to verify its quantity
+                every { cartRepository.save(any()) } answers {
+                    val savedCart = firstArg<Cart>()
+                    // Verify the quantity was adjusted to match inventory
+                    savedCart.quantity shouldBe stockQuantity
+                    adjustedCart
+                }
+
+                // When
+                val response = cartService.addToCart(userId, request)
+
+                // Then
+                response.quantity shouldBe stockQuantity
+                response.requiresQuantityAdjustment shouldBe true
+
+                verify { productRepository.findById(productId) }
+                verify { inventoryRepository.findByProductId(productId) }
+                verify { cartRepository.findByUserIdAndProductId(userId, productId) }
+                verify { cartRepository.save(any()) }
+            }
         }
     },
 ) {
