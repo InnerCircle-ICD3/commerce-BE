@@ -14,9 +14,6 @@ import jakarta.persistence.ManyToOne
 
 @Entity
 class Cart(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     var user: User?,
@@ -25,10 +22,17 @@ class Cart(
     var product: Product,
     @Column(name = "quantity", nullable = false)
     var quantity: Int,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0
+
     @Column(name = "created_at", nullable = false)
-    var createdAt: LocalDateTime = LocalDateTime.now(),
+    var createdAt: LocalDateTime = LocalDateTime.now()
+
     @Column(name = "updated_at", nullable = false)
-    var updatedAt: LocalDateTime = LocalDateTime.now(),
+    var updatedAt: LocalDateTime = LocalDateTime.now()
+
     @Column(name = "deleted_at")
-    var deletedAt: LocalDateTime? = null,
-)
+    var deletedAt: LocalDateTime? = null
+}
