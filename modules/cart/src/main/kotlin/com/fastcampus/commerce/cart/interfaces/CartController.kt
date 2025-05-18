@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/carts")
+@RequestMapping("/cart")
 class CartController(
     private val cartService: CartService,
 ) {
