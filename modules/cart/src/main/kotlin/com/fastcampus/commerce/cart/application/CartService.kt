@@ -62,7 +62,7 @@ class CartService(
         // Save cart
         val savedCart = cartRepository.save(cart)
 
-        val isSoldOut = product.status == SellingStatus.UNAVAILABLE
+        val isSoldOut = inventory.quantity <= 0
         val isAvailable = product.status == SellingStatus.ON_SALE
 
         // Create response
