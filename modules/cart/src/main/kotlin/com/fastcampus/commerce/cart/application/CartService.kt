@@ -42,7 +42,7 @@ class CartService(
 
         val cart = if (existingCart.isPresent) {
             val cartItem = existingCart.get()
-            cartItem.quantity += quantity
+            cartItem.quantity = quantity
             cartItem.updatedAt = LocalDateTime.now()
             cartItem
         } else {
