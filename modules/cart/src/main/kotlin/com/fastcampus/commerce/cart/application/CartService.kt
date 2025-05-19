@@ -68,7 +68,7 @@ class CartService(
         // Create response
         return CartAddResponse(
             cartItemId = savedCart.id,
-            productId = product.id ?: 0L,
+            productId = product.id!!,
             name = product.name,
             price = product.price,
             quantity = savedCart.quantity,
