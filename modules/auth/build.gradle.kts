@@ -2,6 +2,11 @@ val jjwtVersion = "0.11.5"
 
 dependencies {
 
+    // WebClient
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+
     // Spring Security Core
     implementation("org.springframework.boot:spring-boot-starter-security")
 
