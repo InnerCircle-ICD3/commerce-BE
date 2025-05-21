@@ -1,19 +1,21 @@
 package com.fastcampus.commerce.auth
 
+import com.fastcampus.commerce.common.error.AuthErrorCode
+import com.fastcampus.commerce.common.error.CoreException
+import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.JwtBuilder
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.io.Decoders
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
 import java.sql.Date
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
+
+private const val USER_ID = "user_id"
 
 @Component
 class TokenProvider(
@@ -32,10 +34,8 @@ class TokenProvider(
      * @return 생성된 액세스 토큰
      */
     fun createAccessToken(userId: Long): String {
-        // RestClient User로 호출 (?) => User 엔티티 참조
-
         return createToken(
-            { jwt -> jwt.claim("user_id", userId) },
+            { jwt -> jwt.claim(USER_ID, userId) },
             jwtProperties.accessTokenExpireMinutes,
             ChronoUnit.MINUTES,
         )
@@ -50,7 +50,7 @@ class TokenProvider(
      */
     fun createRefreshToken(userId: Long): String {
         return createToken(
-            { jwt -> jwt.claim("user_id", userId) },
+            { jwt -> jwt.claim(USER_ID, userId) },
             jwtProperties.refreshTokenExpireDays,
             ChronoUnit.DAYS,
         )
@@ -64,76 +64,39 @@ class TokenProvider(
      * @return 새로 생성된 액세스 토큰
      */
     fun refreshAccessToken(refreshToken: String): String {
-
-        // 유효성 검증
-
-        val userId = 123L
+        val userId = extractUserIdFromToken(refreshToken)
         return createAccessToken(userId)
     }
 
     /**
-     * 토큰의 유효성을 검증합니다.
-     *
-     * @param token 검증할 JWT 토큰
-     *
-     * @return 토큰이 유효하면 true, 그렇지 않으면 false를 반환합니다.
-     *
-     * @throws ExpiredJwtException    토큰이 만료된 경우
-     * @throws JwtException           토큰이 유효하지 않은 경우
-     */
-    fun validateToken(token: String): Boolean {
-        try {
-            Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-            return true
-        } catch (e: ExpiredJwtException) {
-            throw IllegalArgumentException("")
-        } catch (e: JwtException) {
-            throw IllegalArgumentException("")
-        }
-    }
-
-    /**
-     * JWT 토큰에서 인증 정보를 추출합니다.
+     * JWT 토큰에서 회원 ID를 추출한다.
      *
      * @param token JWT 토큰
      *
-     * @return 인증 정보
+     * @return 회원 ID
      */
-    fun getAuthentication(token: String): Authentication {
-        // 토큰에서 클레임을 추출
-        val claims = Jwts.parser()
-            .verifyWith(key)
-            .build()
-            .parseSignedClaims(token)
-            .payload
-
-        val userId = claims["user_id"] as Long
-
-        // 권한 정보를 생성합니다. (실제 애플리케이션에서는 토큰에서 권한 정보를 추출해야 합니다.)
-        val authorities = listOf(SimpleGrantedAuthority("ROLE_USER"))
-
-        // 인증 정보 반환
-        return UsernamePasswordAuthenticationToken(userId, "", authorities)
+    fun extractUserIdFromToken(token: String): Long {
+        val claims = parseClaims(token)
+        return claims[USER_ID] as Long
     }
 
     /**
-     * 주어진 연산을 사용하여 지정된 클레임들로 JWT 토큰을 생성합니다.
+     * 주어진 연산을 사용하여 지정된 클레임들로 JWT 토큰을 생성한다.
      *
-     * @param customizeClaims `JwtBuilder` 객체를 매개변수로 받고, 토큰에 추가 클레임들을 설정하는 람다 함수입니다.
-     * @param expirationValueToAdd 토큰의 만료 시간에 추가할 값입니다.
-     * @param expirationUnit 만료 시간의 단위입니다.
+     * @param customizeClaims `JwtBuilder` 객체를 매개변수로 받고, 토큰에 추가 클레임들을 설정하는 람다 함수
+     * @param expirationValueToAdd 토큰의 만료 시간에 추가할 값
+     * @param expirationUnit 만료 시간 단위
      *
-     * @return 생성된 JWT 토큰을 문자열 형태로 반환합니다.
+     * @return 생성된 JWT 토큰을 문자열 형태로 반환
      */
-    private fun createToken(customizeClaims: (JwtBuilder) -> Unit, expirationValueToAdd: Long, expirationUnit: ChronoUnit): String {
+    private fun createToken(
+        customizeClaims: (JwtBuilder) -> Unit,
+        expirationValueToAdd: Long,
+        expirationUnit: ChronoUnit,
+    ): String {
         val jwt: JwtBuilder = Jwts.builder()
             // header
-            .header()
-            .type("JWT")
-            .and()
+            .header().type("JWT").and()
 
             // payload
             .issuer(jwtProperties.issuer)
@@ -145,5 +108,29 @@ class TokenProvider(
         return jwt
             .signWith(key)
             .compact()
+    }
+
+    /**
+     * 주어진 JWT 토큰에서 클레임(Claims)을 파싱하여 반환한다.
+     *
+     * @param token 파싱할 JWT 토큰
+     *
+     * @return JWT 토큰에서 추출한 클레임 정보
+     *
+     * @throws ExpiredJwtException 토큰이 만료된 경우
+     * @throws JwtException        토큰이 유효하지 않은 경우
+     */
+    private fun parseClaims(token: String): Claims {
+        try {
+            return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .payload
+        } catch (_: ExpiredJwtException) {
+            throw CoreException(AuthErrorCode.EXPIRED_TOKEN)
+        } catch (_: JwtException) {
+            throw CoreException(AuthErrorCode.INVALID_TOKEN)
+        }
     }
 }
