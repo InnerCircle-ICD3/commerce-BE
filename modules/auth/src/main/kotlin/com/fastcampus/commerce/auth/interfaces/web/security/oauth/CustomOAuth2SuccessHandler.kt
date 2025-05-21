@@ -21,9 +21,9 @@ class CustomOAuth2SuccessHandler : AuthenticationSuccessHandler {
         val user = authentication.principal as? CustomUserPrincipal ?: return
         val token = "여기서 JWT 발급" //TODO: 여기서 user 객체 사용
 
-        response.addHeader("Authorization", "Bearer $token")
+        //response.addHeader("Authorization", "Bearer $token")
         // 또는 리다이렉트
-        response.sendRedirect("/")
+        //response.sendRedirect("/")
 
         log.info("Successfully authenticated: $response")
     }
