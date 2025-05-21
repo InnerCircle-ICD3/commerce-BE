@@ -1,4 +1,4 @@
-package com.fastcampus.commerce.auth.domain.entity
+package com.fastcampus.commerce.user.domain.entity
 
 import com.fastcampus.commerce.auth.domain.model.Oauth2ProviderType
 import jakarta.persistence.*
