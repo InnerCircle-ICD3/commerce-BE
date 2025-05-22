@@ -1,4 +1,4 @@
-package com.fastcampus.commerce.auth.domain.model
+package com.fastcampus.commerce.user.domain.model
 
 enum class Oauth2ProviderType(val value: String) {
     KAKAO("KAKAO"),

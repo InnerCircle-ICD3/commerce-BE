@@ -1,4 +1,4 @@
-package com.fastcampus.commerce.auth.domain.entity
+package com.fastcampus.commerce.user.domain.entity
 
 import jakarta.persistence.*
 import java.time.LocalDateTime
