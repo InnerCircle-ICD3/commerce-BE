@@ -13,6 +13,7 @@ auth:
       client-id: OFAjwhciHWlXDEPTzYGW
       client-secret: 1MF0BuXZ31
       redirect-uri: http://localhost:8080/login/oauth2/code/naver
+      authorization-grant-type: authorization_code
       scope:
         - name
         - email
