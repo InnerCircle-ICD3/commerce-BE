@@ -18,7 +18,7 @@ import jakarta.persistence.Table
 class Cart(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    var user: User?,
+    var user: User,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     var product: Product,
