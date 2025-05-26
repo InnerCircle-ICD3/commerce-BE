@@ -1,5 +1,7 @@
 package com.fastcampus.commerce.auth.config
 
+import com.fastcampus.commerce.auth.TokenProvider
+import com.fastcampus.commerce.auth.filter.JwtAuthenticationFilter
 import com.fastcampus.commerce.auth.infrastructure.security.oauth.config.NaverOAuth2Properties
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -32,7 +34,8 @@ class SecurityConfig(
     private val corsProperties: CorsProperties,
     private val customOAuth2UserService: OAuth2UserService<OAuth2UserRequest, OAuth2User>,
     private val customSuccessHandler: AuthenticationSuccessHandler,
-    private val customFailureHandler: AuthenticationFailureHandler
+    private val customFailureHandler: AuthenticationFailureHandler,
+    private val tokenProvider: TokenProvider
 ) {
 
     @Bean
@@ -50,12 +53,17 @@ class SecurityConfig(
     }
 
     @Bean
+    fun jwtAuthenticationFilter(): JwtAuthenticationFilter {
+        return JwtAuthenticationFilter(tokenProvider)
+    }
+
+    @Bean
     fun securityFilterChain(http: HttpSecurity, corsConfigurationSource: CorsConfigurationSource): SecurityFilterChain {
         http
             .cors { it.configurationSource(corsConfigurationSource) }
             .csrf { it.disable() }
             .authorizeHttpRequests {
-                it.requestMatchers("/auth/login", "/auth/signup", "/oauth2/**").permitAll()
+                it.requestMatchers("/auth/login", "/auth/signup", "/oauth2/**", "/api/v1/auth/reissue").permitAll()
                     .anyRequest().authenticated()
             }
             .oauth2Login { oauth2 ->
@@ -73,6 +81,7 @@ class SecurityConfig(
                     .successHandler(customSuccessHandler) // 선택
                     .failureHandler(customFailureHandler) // 선택
             }
+            .addFilterBefore(jwtAuthenticationFilter(), org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
 }

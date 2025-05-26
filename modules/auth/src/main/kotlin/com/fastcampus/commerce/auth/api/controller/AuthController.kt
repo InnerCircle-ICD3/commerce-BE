@@ -17,8 +17,8 @@ class AuthController(
      * 토큰 재발급
      */
     @PostMapping("/reissue")
-    fun reissueToken(@RequestParam("accessToken") accessToken: String): ApiResponse<String> {
-        return ApiResponse.success(authService.reissueToken(accessToken))
+    fun reissueToken(@RequestParam("refreshToken") refreshToken: String): ApiResponse<String> {
+        return ApiResponse.success(authService.reissueToken(refreshToken))
     }
 
 }

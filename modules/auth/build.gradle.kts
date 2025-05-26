@@ -1,4 +1,4 @@
-val jjwtVersion = "0.11.5"
+val jjwtVersion = "0.12.5"
 
 dependencies {
 
